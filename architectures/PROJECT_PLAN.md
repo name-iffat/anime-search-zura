@@ -8,7 +8,7 @@
 - [x] Phase 1 – Project Initialization (Vite, Tailwind v4.1, folders, Git)
 - [x] Phase 2 – API Setup & Types (Axios instance, full Jikan types, first fetch)
 - [x] Phase 3 – Search & Listing Page (debounced search, cards, grid, states)
-- [ ] Phase 4 – Pagination & States
+- [x] Phase 4 – Pagination & States (URL sync, retry on 429, no duplicates, smooth transitions)
 - [ ] Phase 5 – Detail Page
 - [ ] Phase 6 – UI/UX Polish
 - [ ] Phase 7 – Advanced Bonuses
@@ -181,11 +181,10 @@ anime-search-zura/
 
 ## Next Action
 
-**Phase 4 deliverables**  
-- `src/components/Pagination.tsx` with prev/next/page numbers  
-- Update `useAnimeSearch` to handle page state + URL params  
-- EV-themed loading spinner + retry button in UI  
-- Commit: “Phase 4: Add pagination, URL sync, improved states”
+***Phase 5 deliverables**  
+- `src/hooks/useAnimeDetail.ts` – fetch full anime by ID  
+- `src/pages/DetailPage.tsx` – rich detail layout with hero, info sections  
+- Consistent loading/error UI
 ---
 
 **Last updated:** February 05, 2026
