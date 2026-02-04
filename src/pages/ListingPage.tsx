@@ -1,4 +1,5 @@
-import { useState, useEffect, useRef } from 'react';
+import { useState, useEffect } from 'react';
+import { useInView } from 'react-intersection-observer';
 import { useAnimeSearch } from '../hooks/useAnimeSearch';
 import { useAppContext } from '../context/AppContext';
 import { Link } from 'react-router-dom';
@@ -38,26 +39,16 @@ export default function ListingPage() {
     const { favourites, infiniteScroll } = useAppContext();
     const [showFilters, setShowFilters] = useState(false);
 
-    const loadMoreRef = useRef<HTMLDivElement>(null);
+    const { ref: loadMoreRef, inView } = useInView({
+        threshold: 0.1,
+        skip: !infiniteScroll || !hasNextPage || isFetching,
+    });
 
     useEffect(() => {
-        if (!infiniteScroll) return;
-
-        const observer = new IntersectionObserver(
-            (entries) => {
-                if (entries[0].isIntersecting && hasNextPage && !isFetching) {
-                    fetchNextPage();
-                }
-            },
-            { threshold: 0.1 }
-        );
-
-        if (loadMoreRef.current) {
-            observer.observe(loadMoreRef.current);
+        if (inView) {
+            fetchNextPage();
         }
-
-        return () => observer.disconnect();
-    }, [hasNextPage, isFetching, fetchNextPage, infiniteScroll]);
+    }, [inView, fetchNextPage]);
 
     const hasActiveFilters = filterType || filterStatus || filterRating;
 
