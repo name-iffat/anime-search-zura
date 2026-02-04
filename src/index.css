@@ -1,1 +1,19 @@
 @import "tailwindcss";
+
+@keyframes battery {
+  0% {
+    width: 0%
+  }
+
+  50% {
+    width: 100%
+  }
+
+  100% {
+    width: 0%
+  }
+}
+
+.animate-\[battery_3s_infinite\] {
+  animation: battery 3s infinite linear;
+}
