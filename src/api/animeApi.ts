@@ -35,7 +35,7 @@ export const getAnimeSearchParams = (params: {
     return {
         params: {
             ...params,
-            limit: params.limit || 12,
+            limit: params.limit || 25,
         },
     };
 };

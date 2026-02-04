@@ -14,6 +14,39 @@
   }
 }
 
-.animate-\[battery_3s_infinite\] {
-  animation: battery 3s infinite linear;
+/* loading animation bateri*/
+@keyframes battery {
+  0% {
+    transform: translateX(-100%)
+  }
+
+  50% {
+    transform: translateX(0%)
+  }
+
+  100% {
+    transform: translateX(100%)
+  }
+}
+
+@keyframes battery-fill {
+  0% {
+    width: 0%
+  }
+
+  50% {
+    width: 100%
+  }
+
+  100% {
+    width: 0%
+  }
+}
+
+.animate-battery {
+  animation: battery 4s infinite linear;
+}
+
+.animate-battery-fill {
+  animation: battery-fill 3s infinite ease-in-out;
 }

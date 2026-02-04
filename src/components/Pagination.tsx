@@ -18,13 +18,22 @@ export default function Pagination({ currentPage, totalPages, onPageChange }: Pa
         pages.push(i);
     }
 
+    const isFirstPage = currentPage === 1;
+    const isLastPage = currentPage === totalPages;
+
     return (
-        <div className="flex justify-center items-center gap-2 mt-8 flex-wrap">
+        <nav className="flex justify-center items-center gap-2 mt-8 flex-wrap" aria-label="Pagination">
             <button
                 onClick={() => onPageChange(currentPage - 1)}
-                disabled={currentPage === 1}
-                className="px-4 py-2 bg-electric-blue text-white rounded disabled:opacity-50 disabled:cursor-not-allowed hover:bg-blue-700 transition-colors"
+                disabled={isFirstPage}
+                className={`
+          px-5 py-2.5 rounded-lg font-medium transition-all duration-200
+          ${isFirstPage
+                        ? 'bg-gray-200 text-gray-400 cursor-not-allowed'
+                        : 'bg-electric-blue text-white bg-blue-500 hover:bg-blue-700 active:bg-blue-800'}
+        `}
                 aria-label="Previous page"
+                aria-disabled={isFirstPage}
             >
                 Previous
             </button>
@@ -33,10 +42,12 @@ export default function Pagination({ currentPage, totalPages, onPageChange }: Pa
                 <button
                     key={p}
                     onClick={() => onPageChange(p)}
-                    className={`px-4 py-2 rounded ${p === currentPage
-                            ? 'bg-electric-blue text-white'
-                            : 'bg-gray-200 text-gray-700 hover:bg-gray-300'
-                        } transition-colors`}
+                    className={`
+            px-4 py-2 rounded-lg font-medium transition-all duration-200 min-w-[40px]
+            ${p === currentPage
+                            ? 'bg-electric-blue text-gray-700 ring-2 ring-electric-blue/50'
+                            : 'bg-white text-gray-700 border border-gray-300 hover:bg-gray-100 active:bg-gray-200'}
+          `}
                     aria-current={p === currentPage ? 'page' : undefined}
                     aria-label={`Go to page ${p}`}
                 >
@@ -46,12 +57,18 @@ export default function Pagination({ currentPage, totalPages, onPageChange }: Pa
 
             <button
                 onClick={() => onPageChange(currentPage + 1)}
-                disabled={currentPage === totalPages}
-                className="px-4 py-2 bg-electric-blue text-white rounded disabled:opacity-50 disabled:cursor-not-allowed hover:bg-blue-700 transition-colors"
+                disabled={isLastPage}
+                className={`
+          px-5 py-2.5 rounded-lg font-medium transition-all duration-200
+          ${isLastPage
+                        ? 'bg-gray-200 text-gray-400 cursor-not-allowed'
+                        : 'bg-electric-blue text-white bg-blue-500 hover:bg-blue-700 active:bg-blue-800'}
+        `}
                 aria-label="Next page"
+                aria-disabled={isLastPage}
             >
                 Next
             </button>
-        </div>
+        </nav>
     );
 }

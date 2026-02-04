@@ -12,6 +12,7 @@ export default function ListingPage() {
         handlePageChange,
         results,
         isLoading,
+        isFetching,
         error,
         isEmptySearch,
         totalPages,
@@ -25,7 +26,7 @@ export default function ListingPage() {
 
             <SearchInput value={query} onChange={handleSearchChange} />
 
-            {isLoading && <LoadingSpinner />}
+            {(isLoading || isFetching) && <LoadingSpinner />}
 
             {error && (
                 <div className="text-center my-12 p-6 bg-red-50 border border-anime-red rounded-lg max-w-lg mx-auto">
@@ -48,8 +49,11 @@ export default function ListingPage() {
             )}
 
             <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-6">
-                {results.map((anime) => (
-                    <AnimeCard key={anime.mal_id} anime={anime} />
+                {results.map((anime, index) => (
+                    <AnimeCard
+                        key={`${anime.mal_id}-${page}-${index}`}
+                        anime={anime}
+                    />
                 ))}
             </div>
 

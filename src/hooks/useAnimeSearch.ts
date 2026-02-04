@@ -1,9 +1,11 @@
-import { useState, useMemo, useEffect } from 'react';
+import { useState, useMemo, useEffect, useRef } from 'react';
 import { useQuery } from '@tanstack/react-query';
 import { api, getAnimeSearchParams } from '../api/animeApi';
 import type { JikanAnimeListResponse } from '../types/anime';
 import { debounce } from '../utils/debounce';
 import { useSearchParams } from 'react-router-dom';
+import axios from 'axios';
+
 
 const DEBOUNCE_DELAY = 400;
 
@@ -36,23 +38,33 @@ export const useAnimeSearch = () => {
 
     const isEmptySearch = debouncedQuery.trim() === '';
 
-    const { data, isLoading, error, refetch } = useQuery<JikanAnimeListResponse>({
+    const { data, isLoading, isFetching, error, refetch } = useQuery<JikanAnimeListResponse, Error>({
         queryKey: ['animeSearch', debouncedQuery, page],
         queryFn: async () => {
             const params = isEmptySearch
-                ? { page: 1, limit: 25, order_by: 'score', sort: 'desc' }
+                ? { page, limit: 25, order_by: 'score', sort: 'desc' }
                 : { q: debouncedQuery, page, limit: 25 };
             const response = await api.get('/anime', getAnimeSearchParams(params));
             return response.data;
         },
         placeholderData: (previousData) => previousData,
+        retry: (failureCount, error) => {
+            if (axios.isAxiosError(error) && error.response?.status === 429) {
+                return failureCount < 3;
+            }
+            return true;
+        },
+        retryDelay: (attempt) => Math.min(1000 * 2 ** attempt, 30000),
     });
-
     useEffect(() => {
-        setQuery(urlQuery);
-        setPage(urlPage);
-        setDebouncedQuery(urlQuery);
-    }, [urlQuery, urlPage]);
+        if (debouncedQuery !== previousDebouncedQuery.current) {
+            setPage(1);
+            setSearchParams({ q: debouncedQuery, page: '1' });
+            previousDebouncedQuery.current = debouncedQuery;
+        }
+    }, [debouncedQuery, setSearchParams]);
+
+    const previousDebouncedQuery = useRef(debouncedQuery);
 
     return {
         query,
@@ -61,6 +73,7 @@ export const useAnimeSearch = () => {
         handlePageChange,
         results: data?.data ?? [],
         isLoading,
+        isFetching,
         error,
         isEmptySearch,
         refetch,
