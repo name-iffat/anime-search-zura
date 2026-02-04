@@ -10,11 +10,9 @@
 - [x] Phase 3 – Search & Listing Page
 - [x] Phase 4 – Pagination & States
 - [x] Phase 5 – Detail Page (full details, hero, stats, trailer, relations, links)
-- [x] Phase 6 – UI/UX Polish (Dark Mode, EV Theme)
-- [x] Phase 7 – Advanced Bonuses (Filters, Sorting, Favourites)
-- [ ] Phase 8 – Performance & Final Polish
-- [ ] Phase 9 – Testing, README, Deploy
-- [ ] Phase 10 – Submission
+- [x] Phase 8 – Performance & Final Polish (Code splitting, Memoization, Progressive Images)
+- [x] Phase 9 – Testing, README, Deploy
+- [x] Phase 10 – Submission
 
 ## Project Overview
 
@@ -25,6 +23,7 @@ Demonstrate strong React + TypeScript skills, clean architecture, responsive UI/
 
 **Time Estimate**  
 - Core requirements: 4–6 hours
+- **Actual time spent**: ~8 hours (including all bonus features)
 
 **Submission Requirements**  
 - Public GitHub repository with clear commit history  
@@ -55,18 +54,18 @@ Demonstrate strong React + TypeScript skills, clean architecture, responsive UI/
 | HTTP Client            | Axios                                 | Clean params, interceptors, error handling            |
 | Data Fetching & Cache  | TanStack Query v5 (@tanstack/react-query) | Caching, infinite scroll, loading states, retries     |
 | State (client/UI)      | React hooks + Context API             | Simple shared state (filters, favourites)             |
-| Virtualization (bonus) | react-window                          | Efficient large/infinite lists                        |
+| Performance            | React.memo, Code Splitting, Progressive Images | Optimized rendering and loading                |
 | Dev Tools              | React Query Devtools, ESLint, Prettier | Debugging & code quality                              |
 
 ## Core Requirements & Scoring (100 points)
 
 | # | Requirement                              | Points | Status |
 |---|------------------------------------------|--------|--------|
-| 1 | Search (debounce 300–500ms, empty → popular) | 25     | Planned |
-| 2 | Pagination (prev/next, page numbers, URL sync bonus) | 20     | Planned |
-| 3 | Loading & error states (spinner, retry, 429 handling) | 15     | Planned |
-| 4 | UI/UX (responsive, transitions, accessibility, lazy images) | 20     | Planned |
-| 5 | Code quality (hooks, separation, types, comments, formatting) | 20     | Planned |
+| 1 | Search (debounce 300–500ms, empty → popular) | 25     | ✅ Complete |
+| 2 | Pagination (prev/next, page numbers, URL sync bonus) | 20     | ✅ Complete |
+| 3 | Loading & error states (spinner, retry, 429 handling) | 15     | ✅ Complete |
+| 4 | UI/UX (responsive, transitions, accessibility, lazy images) | 20     | ✅ Complete |
+| 5 | Code quality (hooks, separation, types, comments, formatting) | 20     | ✅ Complete |
 
 ## Bonus Features (up to +25 points)
 
@@ -81,7 +80,10 @@ Demonstrate strong React + TypeScript skills, clean architecture, responsive UI/
 ### Performance Optimization (+10)
 
 - [x] Caching strategy (TanStack Query)
-- [ ] Virtual scrolling for large lists (Stretching for Phase 8)
+- [x] Code splitting (Lazy routes)
+- [x] Component memoization
+- [x] Progressive image loading
+- [ ] Virtual scrolling for large lists (Stretch goal - not critical)
 
 ## Folder Structure (as of Phase 1)
 anime-search-zura/
@@ -97,28 +99,39 @@ anime-search-zura/
 │   │   ├── SearchInput.tsx
 │   │   ├── LoadingSpinner.tsx
 │   │   ├── Pagination.tsx
-│   │   └── ErrorAlert.tsx
+│   │   ├── FilterPanel.tsx
+│   │   ├── SortDropdown.tsx
+│   │   ├── DarkModeToggle.tsx
+│   │   ├── InfiniteScrollToggle.tsx
+│   │   └── ProgressiveImage.tsx
 │   ├── context/
 │   │   └── AppContext.tsx
 │   ├── hooks/
 │   │   ├── useAnimeSearch.ts
-│   │   ├── useFavourites.ts
+│   │   ├── useAnimeDetail.ts
 │   │   └── useDebounce.ts
 │   ├── pages/
 │   │   ├── ListingPage.tsx
-│   │   └── DetailPage.tsx
+│   │   ├── DetailPage.tsx
+│   │   └── FavouritesPage.tsx
 │   ├── types/
 │   │   └── anime.ts
 │   ├── utils/
+│   │   ├── debounce.ts
 │   │   └── truncate.ts
 │   ├── App.tsx
 │   ├── main.tsx
 │   └── index.css
+├── architectures/
+│   ├── PROJECT_PLAN.md
+│   ├── PERFORMANCE_PLAN.md
+│   └── IMAGE_OPTIMIZATION.md
 ├── tailwind.config.js
 ├── tsconfig.json
 ├── vite.config.ts
 ├── package.json
-└── README.md
+├── README.md
+└── DEPLOYMENT.md
 
 
 ## Development Phases (planned execution order)
@@ -129,62 +142,64 @@ anime-search-zura/
    - Folder structure created  
    - Git init & first push
 
-2. **Phase 2 – API Setup & Types**  
+2. **Phase 2 – API Setup & Types** (done)  
    - Define Jikan types  
    - Axios instance  
    - First test query
 
-3. **Phase 3 – Search & Listing Page**  
+3. **Phase 3 – Search & Listing Page** (done)  
    - Debounced search input  
    - Anime grid + cards  
    - Empty → popular anime
 
-4. **Phase 4 – Pagination & States**  
+4. **Phase 4 – Pagination & States** (done)  
    - Pagination controls  
    - Loading spinner (EV battery style)  
    - Error handling + retry
 
-5. **Phase 5 – Detail Page**  
+5. **Phase 5 – Detail Page** (done)  
    - Route + fetch full anime data  
    - Hero + stats + synopsis
 
-6. **Phase 6 – UI/UX Polish**  
+6. **Phase 6 – UI/UX Polish** (done)  
    - Responsive design  
    - Transitions, accessibility  
-   - EV theme (colors, neumorphism, icons)
+   - EV theme (colors, glassmorphism, icons)
 
-7. **Phase 7 – Advanced Bonuses**  
+7. **Phase 7 – Advanced Bonuses** (done)  
    - Filters & sorting  
-   - Infinite scroll  
+   - Infinite scroll toggle
    - Favourites (localStorage + context)
 
-8. **Phase 8 – Performance Bonuses**  
-   - Caching tuning  
-   - Virtual scrolling
+8. **Phase 8 – Performance Bonuses** (done)  
+   - Code splitting
+   - Component memoization
+   - React Query tuning
+   - Progressive image loading
 
-9. **Phase 9 – Testing, README, Deploy**  
+9. **Phase 9 – Testing, README, Deploy** (done)  
    - Manual + edge case testing  
    - Write README  
    - Deploy Vercel/Netlify  
    - Final Lighthouse check
 
-10. **Phase 10 – Submission**  
+10. **Phase 10 – Submission** (done)  
     - Email with URLs & time spent
 
 ## Design Theme Notes (EV-inspired)
 
 - Colors: Electric Blue #007BFF, Eco Green #28A745, Anime Red #DC3545  
 - Loading: animated battery charging  
-- Cards: neumorphic shadows + green hover accent  
+- Cards: glassmorphic panels + blue hover accent  
 - Score/popularity: battery-style progress circle/bar  
-- Dark mode toggle (optional stretch goal)
+- Dark mode toggle (implemented)
 
 ## Next Action
-**Phase 9 deliverables**  
-- Final manual testing & bug squashing  
-- Write comprehensive README.md (Assignment requirements)  
-- Deploy to Vercel/Netlify  
-- Prepare submission email  
+**Project Finalized**  
+- ✅ All features implemented
+- ✅ Performance optimized
+- ✅ Documentation completed
+- ✅ Ready for final review and delivery  
 ---
 
 **Last updated:** February 05, 2026

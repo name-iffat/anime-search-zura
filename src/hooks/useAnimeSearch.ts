@@ -113,6 +113,10 @@ export const useAnimeSearch = () => {
             return response.data;
         },
         placeholderData: (previousData) => previousData,
+        staleTime: 5 * 60 * 1000, // 5 minutes - data stays fresh
+        gcTime: 10 * 60 * 1000, // 10 minutes - keep in cache (formerly cacheTime)
+        refetchOnWindowFocus: false, // Prevent unnecessary refetch
+        refetchOnMount: false, // Use cache when available
         retry: (failureCount, error) => {
             if (axios.isAxiosError(error) && error.response?.status === 429) {
                 return failureCount < 3;

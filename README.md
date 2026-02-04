@@ -1,73 +1,80 @@
-# React + TypeScript + Vite
+# ZuraCharge Anime Search Application
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+A clean, fast, and user-friendly anime search & discovery web app built as a take-home assignment for ZuraCharge (EV charging solutions company, Malaysia).
 
-Currently, two official plugins are available:
+ **[Live Demo](https://anime-search-zura.vercel.app)**  
+ **[GitHub Repository](https://github.com/name-iffat/anime-search-zura)**
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) (or [oxc](https://oxc.rs) when used in [rolldown-vite](https://vite.dev/guide/rolldown)) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+---
 
-## React Compiler
+### 2. Install dependencies
+npm install
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+### 3. Run in development mode (with hot reload)
+npm run dev
+→ open [http://localhost:5173](http://localhost:5173)
 
-## Expanding the ESLint configuration
+### 4. Build & preview production version
+npm run build
+npm run preview
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
+##  Technologies Used & Why
 
-```js
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
+| Tool/Library | Purpose | Why chosen |
+| :--- | :--- | :--- |
+| **React 19 + Vite** | Core framework & build tool | Lightning-fast dev server, instant HMR, tiny production bundles |
+| **TypeScript** | Static typing | Catches bugs early, improves maintainability & code quality |
+| **Tailwind CSS v4.1** | Styling | Rapid custom UI, no pre-built component libraries (matches constraint) |
+| **React Router v6** | Client-side routing | Clean declarative routing — exactly what the assignment recommends |
+| **Axios** | HTTP client | Simple query params, interceptors, clean error handling |
+| **TanStack Query v5** | Data fetching, caching, infinite scroll | Handles loading/error/retry/caching perfectly, enables all bonuses easily |
+| **Context API + hooks** | Client state (theme, favourites) | Built-in, lightweight — no need for Redux on a project this size |
+| **react-window** | Virtual scrolling (performance bonus) | Tiny (~2 KB), makes long/infinite lists smooth without lag |
+| **react-intersection-observer** | Infinite scroll trigger | Clean hook for detecting when to load more — zero visual impact |
 
-      // Remove tseslint.configs.recommended and replace with this
-      tseslint.configs.recommendedTypeChecked,
-      // Alternatively, use this for stricter rules
-      tseslint.configs.strictTypeChecked,
-      // Optionally, add this for stylistic rules
-      tseslint.configs.stylisticTypeChecked,
+> **Note:** All UI components are custom-built with Tailwind — no Material-UI, Ant Design, Chakra, MUI, etc.
 
-      // Other configs...
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
-```
+---
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
+##  Design & Feature Decisions
 
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
+- **Dark mode** — system preference + manual toggle (persisted in localStorage).
+- **EV-inspired theme** — electric blue accents, eco green success states, battery-style score indicators, neumorphic cards with green hover glow.
+- **Infinite scroll** — primary experience (classic pagination kept as fallback).
+- **Favourites** — full anime preview objects stored in localStorage (easier display vs storage size trade-off).
+- **Rate limiting** — automatic retry with exponential backoff on 429 errors.
+- **Accessibility** — ARIA labels, keyboard focus styles, semantic HTML.
+- **Images** — loading="lazy", explicit width/height to prevent layout shifts.
 
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-      // Enable lint rules for React
-      reactX.configs['recommended-typescript'],
-      // Enable lint rules for React DOM
-      reactDom.configs.recommended,
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
-```
+---
+
+##  Known Issues / Limitations
+
+- **Duplicate / same-index anime cards during rapid pagination**
+  - When clicking pages extremely quickly (especially on popular/top anime), you may briefly see duplicate cards or the same mal_id repeated during the loading transition.
+  - *Cause:* Jikan sometimes returns overlapping high-score anime across pages + placeholderData shows previous page data while new page is fetching.
+  - *Mitigation:* Composite keys (`${anime.mal_id}-${page}-${index}`) eliminate React key warnings, but very fast clicking can still cause a visual flash of duplicates. In production builds (minified, no dev overhead) this is almost unnoticeable.
+- **Jikan API rate limits (429)**
+  - Rapid pagination or many open tabs can trigger “Too Many Requests”.
+  - *Mitigation:* Automatic retry with exponential backoff (up to 3 attempts) — delays results by a few seconds but prevents crashes.
+- **Favourites storage limit**
+  - Full anime objects saved → ~100–200 items max before localStorage quota warning (browser-dependent).
+- **Trailer embeds**
+  - Some YouTube trailers may not load due to embed restrictions or missing `embed_url` in API response.
+- **No server-side rendering / SEO**
+  - Pure client-side app — not required for this assignment.
+
+---
+
+##  Tested on
+Chrome, Firefox, Edge (desktop & mobile)
+
+## ⏱ Time spent
+~6 hours
+
+---
+
+Thanks for reviewing!  
+Feel free to reach out if you have questions or feedback.
+
+— **iffat haikal**

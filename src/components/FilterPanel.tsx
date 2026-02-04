@@ -1,3 +1,5 @@
+import { memo } from 'react';
+
 interface FilterPanelProps {
     type: string;
     status: string;
@@ -32,7 +34,7 @@ const ratingOptions = [
     { label: 'Rx (Hentai)', value: 'rx' },
 ];
 
-export default function FilterPanel({ type, status, rating, onFilterChange }: FilterPanelProps) {
+function FilterPanel({ type, status, rating, onFilterChange }: FilterPanelProps) {
     return (
         <div className="glass-panel p-6 rounded-2xl border border-[var(--border-color)] shadow-lg animate-fade-in-up">
             <div className="grid grid-cols-1 sm:grid-cols-3 gap-6">
@@ -90,3 +92,6 @@ export default function FilterPanel({ type, status, rating, onFilterChange }: Fi
         </div>
     );
 }
+
+// Memoize to prevent re-renders when props haven't changed
+export default memo(FilterPanel);

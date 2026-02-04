@@ -1,3 +1,5 @@
+import { memo } from 'react';
+
 interface SortDropdownProps {
     orderBy: string;
     sort: 'asc' | 'desc';
@@ -11,7 +13,7 @@ const sortOptions = [
     { label: 'Start Date', value: 'start_date' },
 ];
 
-export default function SortDropdown({ orderBy, sort, onSortChange }: SortDropdownProps) {
+function SortDropdown({ orderBy, sort, onSortChange }: SortDropdownProps) {
     return (
         <div className="flex items-center gap-2">
             <span className="text-sm font-bold text-[var(--text-secondary)] uppercase tracking-wider">Sort By:</span>
@@ -29,8 +31,8 @@ export default function SortDropdown({ orderBy, sort, onSortChange }: SortDropdo
                                 }
                             }}
                             className={`flex items-center gap-1.5 px-3 py-1.5 rounded-full text-sm font-bold transition-smooth border ${isActive
-                                    ? 'bg-electric-blue text-white border-electric-blue shadow-glow-blue'
-                                    : 'bg-[var(--bg-card)] text-[var(--text-secondary)] border-[var(--border-color)] hover:border-electric-blue hover:text-electric-blue'
+                                ? 'bg-electric-blue text-white border-electric-blue shadow-glow-blue'
+                                : 'bg-[var(--bg-card)] text-[var(--text-secondary)] border-[var(--border-color)] hover:border-electric-blue hover:text-electric-blue'
                                 }`}
                         >
                             {option.label}
@@ -46,3 +48,6 @@ export default function SortDropdown({ orderBy, sort, onSortChange }: SortDropdo
         </div>
     );
 }
+
+// Memoize to prevent re-renders when props haven't changed
+export default memo(SortDropdown);

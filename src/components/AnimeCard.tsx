@@ -1,12 +1,14 @@
+import { memo } from 'react';
 import { Link } from 'react-router-dom';
 import type { AnimePreview } from '../types/anime';
 import { useAppContext } from '../context/AppContext';
+import ProgressiveImage from './ProgressiveImage';
 
 interface AnimeCardProps {
     anime: AnimePreview;
 }
 
-export default function AnimeCard({ anime }: AnimeCardProps) {
+function AnimeCard({ anime }: AnimeCardProps) {
     const shortSynopsis = anime.synopsis?.slice(0, 120) + (anime.synopsis?.length > 120 ? '...' : '');
     const { toggleFavourite, isFavourite } = useAppContext();
     const favourited = isFavourite(anime.mal_id);
@@ -19,11 +21,10 @@ export default function AnimeCard({ anime }: AnimeCardProps) {
                 aria-label={`View details for ${anime.title}`}
             >
                 <div className="relative aspect-[3/4] overflow-hidden">
-                    <img
+                    <ProgressiveImage
                         src={anime.images.jpg.large_image_url || anime.images.jpg.image_url}
                         alt={anime.title}
                         className="w-full h-full object-cover group-hover:scale-105 transition-smooth"
-                        loading="lazy"
                     />
                     <div className="absolute inset-0 bg-black/0 group-hover:bg-black/10 transition-smooth" />
                     {anime.score && (
@@ -60,3 +61,8 @@ export default function AnimeCard({ anime }: AnimeCardProps) {
         </div>
     );
 }
+
+// Memoize to prevent re-renders when anime data hasn't changed
+export default memo(AnimeCard, (prevProps, nextProps) => {
+    return prevProps.anime.mal_id === nextProps.anime.mal_id;
+});

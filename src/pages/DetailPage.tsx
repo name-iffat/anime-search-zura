@@ -3,6 +3,7 @@ import { useAnimeDetail } from '../hooks/useAnimeDetail';
 import { useAppContext } from '../context/AppContext';
 import LoadingSpinner from '../components/LoadingSpinner';
 import DarkModeToggle from '../components/DarkModeToggle';
+import ProgressiveImage from '../components/ProgressiveImage';
 
 export default function DetailPage() {
     const { id } = useParams<{ id: string }>();
@@ -57,7 +58,7 @@ export default function DetailPage() {
                     {/* Hero */}
                     <div className="relative h-96 md:h-[500px] group">
                         <div className="absolute inset-0 transition-transform duration-700 group-hover:scale-105">
-                            <img
+                            <ProgressiveImage
                                 src={anime.images.jpg.large_image_url}
                                 alt={anime.title}
                                 className="w-full h-full object-cover"
