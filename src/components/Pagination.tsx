@@ -5,77 +5,79 @@ interface PaginationProps {
 }
 
 export default function Pagination({ currentPage, totalPages, onPageChange }: PaginationProps) {
-    const pages = [];
-    const maxPagesToShow = 5;
-    let startPage = Math.max(1, currentPage - Math.floor(maxPagesToShow / 2));
-    let endPage = Math.min(totalPages, startPage + maxPagesToShow - 1);
+    if (totalPages <= 1) return null;
 
-    if (endPage - startPage + 1 < maxPagesToShow) {
-        startPage = Math.max(1, endPage - maxPagesToShow + 1);
-    }
+    const getPages = () => {
+        const pages = [];
+        const maxVisible = 5;
 
-    for (let i = startPage; i <= endPage; i++) {
-        pages.push(i);
-    }
+        let start = Math.max(1, currentPage - Math.floor(maxVisible / 2));
+        let end = Math.min(totalPages, start + maxVisible - 1);
 
-    const isFirstPage = currentPage === 1;
-    const isLastPage = currentPage === totalPages;
+        if (end - start + 1 < maxVisible) {
+            start = Math.max(1, end - maxVisible + 1);
+        }
+
+        for (let i = start; i <= end; i++) {
+            pages.push(i);
+        }
+        return pages;
+    };
 
     return (
-        <nav className="flex justify-center items-center gap-2 mt-12 flex-wrap" aria-label="Pagination">
+        <div className="flex flex-wrap items-center justify-center gap-2 mt-12">
             <button
                 onClick={() => onPageChange(currentPage - 1)}
-                disabled={isFirstPage}
-                className={`
-          flex items-center justify-center px-6 py-3 rounded-full font-bold transition-smooth
-          ${isFirstPage
-                        ? 'bg-gray-100 text-gray-400 cursor-not-allowed'
-                        : 'bg-white text-gray-700 hover:bg-electric-blue hover:text-white shadow-md hover:shadow-glow-blue'}
-        `}
-                aria-label="Previous page"
-                aria-disabled={isFirstPage}
+                disabled={currentPage === 1}
+                className="px-4 py-2 rounded-lg glass-panel font-bold text-sm disabled:opacity-30 hover:text-electric-blue transition-smooth"
             >
-                Previous
+                Prev
             </button>
 
-            <div className="flex gap-2 bg-white/50 backdrop-blur-sm p-1 rounded-full mx-2 hidden sm:flex">
-                {pages.map((p) => (
+            {getPages()[0] > 1 && (
+                <>
                     <button
-                        key={p}
-                        onClick={() => onPageChange(p)}
-                        className={`
-            w-10 h-10 rounded-full font-bold transition-smooth flex items-center justify-center text-sm
-            ${p === currentPage
-                                ? 'bg-electric-blue text-white shadow-glow-blue scale-110'
-                                : 'text-gray-600 hover:bg-gray-100 hover:text-electric-blue'}
-          `}
-                        aria-current={p === currentPage ? 'page' : undefined}
-                        aria-label={`Go to page ${p}`}
+                        onClick={() => onPageChange(1)}
+                        className="w-10 h-10 rounded-lg glass-panel font-bold text-sm hover:text-electric-blue transition-smooth"
                     >
-                        {p}
+                        1
                     </button>
-                ))}
-            </div>
+                    {getPages()[0] > 2 && <span className="text-[var(--text-secondary)]">...</span>}
+                </>
+            )}
 
-            {/* Mobile View*/}
-            <span className="sm:hidden font-bold text-gray-600 mx-4">
-                {currentPage} / {totalPages}
-            </span>
+            {getPages().map(page => (
+                <button
+                    key={page}
+                    onClick={() => onPageChange(page)}
+                    className={`w-10 h-10 rounded-lg font-bold text-sm transition-smooth ${currentPage === page
+                            ? 'bg-electric-blue text-white shadow-glow-blue'
+                            : 'glass-panel hover:text-electric-blue'
+                        }`}
+                >
+                    {page}
+                </button>
+            ))}
+
+            {getPages()[getPages().length - 1] < totalPages && (
+                <>
+                    {getPages()[getPages().length - 1] < totalPages - 1 && <span className="text-[var(--text-secondary)]">...</span>}
+                    <button
+                        onClick={() => onPageChange(totalPages)}
+                        className="w-10 h-10 rounded-lg glass-panel font-bold text-sm hover:text-electric-blue transition-smooth"
+                    >
+                        {totalPages}
+                    </button>
+                </>
+            )}
 
             <button
                 onClick={() => onPageChange(currentPage + 1)}
-                disabled={isLastPage}
-                className={`
-          flex items-center justify-center px-6 py-3 rounded-full font-bold transition-smooth
-          ${isLastPage
-                        ? 'bg-gray-100 text-gray-400 cursor-not-allowed'
-                        : 'bg-white text-gray-700 hover:bg-electric-blue hover:text-white shadow-md hover:shadow-glow-blue'}
-        `}
-                aria-label="Next page"
-                aria-disabled={isLastPage}
+                disabled={currentPage === totalPages}
+                className="px-4 py-2 rounded-lg glass-panel font-bold text-sm disabled:opacity-30 hover:text-electric-blue transition-smooth"
             >
                 Next
             </button>
-        </nav>
+        </div>
     );
 }

@@ -1,19 +1,21 @@
 import { useParams, Link } from 'react-router-dom';
 import { useAnimeDetail } from '../hooks/useAnimeDetail';
+import { useAppContext } from '../context/AppContext';
 import LoadingSpinner from '../components/LoadingSpinner';
 import DarkModeToggle from '../components/DarkModeToggle';
 
 export default function DetailPage() {
     const { id } = useParams<{ id: string }>();
     const { data, isLoading, error } = useAnimeDetail(id);
+    const { favourites } = useAppContext();
 
     const anime = data?.data;
 
-    if (isLoading) return <div className="py-20"><LoadingSpinner /></div>;
+    if (isLoading) return <div className="py-20 bg-[var(--bg-primary)] min-h-screen"><LoadingSpinner /></div>;
 
     if (error || !anime) {
         return (
-            <div className="py-20 text-center">
+            <div className="py-20 text-center bg-[var(--bg-primary)] min-h-screen">
                 <p className="text-anime-red text-xl mb-4">Failed to load anime details</p>
                 <Link to="/" className="text-electric-blue hover:underline">
                     Back to search
@@ -34,7 +36,21 @@ export default function DetailPage() {
                     >
                         <span className="mr-2 transform group-hover:-translate-x-1 transition-transform">←</span> Back to search
                     </Link>
-                    <DarkModeToggle />
+                    <div className="flex items-center gap-4">
+                        <Link
+                            to="/favourites"
+                            className="flex items-center gap-2 px-4 py-2 rounded-full glass-panel hover:bg-red-500/10 transition-smooth group"
+                        >
+                            <span className="text-red-500 group-hover:scale-125 transition-transform">❤️</span>
+                            <span className="font-bold hidden sm:inline">Favourites</span>
+                            {favourites.length > 0 && (
+                                <span className="bg-red-500 text-white text-xs font-bold px-2 py-0.5 rounded-full">
+                                    {favourites.length}
+                                </span>
+                            )}
+                        </Link>
+                        <DarkModeToggle />
+                    </div>
                 </div>
 
                 <div className="bg-[var(--bg-card)] rounded-xl shadow-lg run-ring overflow-hidden border border-[var(--border-color)]">

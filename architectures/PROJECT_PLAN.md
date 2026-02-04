@@ -10,9 +10,9 @@
 - [x] Phase 3 – Search & Listing Page
 - [x] Phase 4 – Pagination & States
 - [x] Phase 5 – Detail Page (full details, hero, stats, trailer, relations, links)
-- [ ] Phase 6 – UI/UX Polish
-- [ ] Phase 7 – Advanced Bonuses
-- [ ] Phase 8 – Performance Bonuses
+- [x] Phase 6 – UI/UX Polish (Dark Mode, EV Theme)
+- [x] Phase 7 – Advanced Bonuses (Filters, Sorting, Favourites)
+- [ ] Phase 8 – Performance & Final Polish
 - [ ] Phase 9 – Testing, README, Deploy
 - [ ] Phase 10 – Submission
 
@@ -72,16 +72,16 @@ Demonstrate strong React + TypeScript skills, clean architecture, responsive UI/
 
 ### Advanced Functionality (+15)
 
-- [ ] Filtering (type, status, rating, year)
-- [ ] Infinite scroll instead of classic pagination
-- [ ] Expanded detail view (use /full endpoint)
-- [ ] Favourites / bookmarking (localStorage)
-- [ ] Sorting (title, score, popularity)
+- [x] Filtering (type, status, rating)
+- [x] Infinite scroll / Classic pagination toggle
+- [x] Expanded detail view
+- [x] Favourites / bookmarking (localStorage)
+- [x] Sorting (title, score, popularity, date)
 
 ### Performance Optimization (+10)
 
-- [ ] Caching strategy (TanStack Query built-in)
-- [ ] Virtual scrolling for large lists (react-window)
+- [x] Caching strategy (TanStack Query)
+- [ ] Virtual scrolling for large lists (Stretching for Phase 8)
 
 ## Folder Structure (as of Phase 1)
 anime-search-zura/
@@ -180,13 +180,11 @@ anime-search-zura/
 - Dark mode toggle (optional stretch goal)
 
 ## Next Action
-
-**Phase 6 deliverables**  
-- Responsive layout fixes (media queries, mobile menu if needed)  
-- CSS transitions on cards/hovers/page loads  
-- Accessibility audit & fixes  
-- EV theme consistency (buttons, spinners, cards)  
-- Commit: “Phase 6: UI/UX polish – responsive, animations, accessibility”
+**Phase 9 deliverables**  
+- Final manual testing & bug squashing  
+- Write comprehensive README.md (Assignment requirements)  
+- Deploy to Vercel/Netlify  
+- Prepare submission email  
 ---
 
 **Last updated:** February 05, 2026
