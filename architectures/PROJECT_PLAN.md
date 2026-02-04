@@ -3,6 +3,19 @@
 *Prepared by: iffat haikal (@iffathaikal7@gmail.com)*  
 *Date: February 2026*
 
+## Progress Tracker
+
+- [x] Phase 1 – Project Initialization (Vite, Tailwind v4.1, folders, Git)
+- [x] Phase 2 – API Setup & Types (Axios instance, full Jikan types, first fetch)
+- [x] Phase 3 – Search & Listing Page (debounced search, cards, grid, states)
+- [ ] Phase 4 – Pagination & States
+- [ ] Phase 5 – Detail Page
+- [ ] Phase 6 – UI/UX Polish
+- [ ] Phase 7 – Advanced Bonuses
+- [ ] Phase 8 – Performance Bonuses
+- [ ] Phase 9 – Testing, README, Deploy
+- [ ] Phase 10 – Submission
+
 ## Project Overview
 
 Build a **production-ready anime search and discovery application** using the **Jikan API** as a take-home assignment for ZuraCharge (EV charging solutions company, Malaysia).
@@ -11,9 +24,7 @@ Build a **production-ready anime search and discovery application** using the **
 Demonstrate strong React + TypeScript skills, clean architecture, responsive UI/UX, proper error handling, and bonus features to show advanced capability.
 
 **Time Estimate**  
-- Core requirements: 4–6 hours  
-- Bonuses (all): +2–4 hours  
-- Total target: 6–10 hours
+- Core requirements: 4–6 hours
 
 **Submission Requirements**  
 - Public GitHub repository with clear commit history  
@@ -82,7 +93,7 @@ anime-search-zura/
 │   │   └── animeApi.ts
 │   ├── assets/
 │   ├── components/
-│   │   ├── AnimeCard/
+│   │   ├── AnimeCard.tsx
 │   │   ├── SearchInput.tsx
 │   │   ├── LoadingSpinner.tsx
 │   │   ├── Pagination.tsx
@@ -170,9 +181,11 @@ anime-search-zura/
 
 ## Next Action
 
-Phase 2: API setup, TypeScript types for Jikan responses, and first successful data fetch with TanStack Query.
-
+**Phase 4 deliverables**  
+- `src/components/Pagination.tsx` with prev/next/page numbers  
+- Update `useAnimeSearch` to handle page state + URL params  
+- EV-themed loading spinner + retry button in UI  
+- Commit: “Phase 4: Add pagination, URL sync, improved states”
 ---
 
-**Last updated:** February 05, 2026  
-**Next milestone:** Complete Phase 2 by [your target date/time]
+**Last updated:** February 05, 2026

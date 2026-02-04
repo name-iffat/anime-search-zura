@@ -73,7 +73,7 @@ export interface AnimeFull extends AnimePreview {
     titles: Array<{ type: string; title: string }>;
     title_synonyms: string[];
     duration: string;
-    rating: string; // e.g. "G - All Ages", "PG-13 - Teens 13 or older"
+    rating: string;
     members: number;
     background?: string;
     broadcast: {
