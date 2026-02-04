@@ -3,6 +3,7 @@ import SearchInput from '../components/SearchInput';
 import AnimeCard from '../components/AnimeCard';
 import LoadingSpinner from '../components/LoadingSpinner';
 import Pagination from '../components/Pagination';
+import DarkModeToggle from '../components/DarkModeToggle';
 import zuraLogo from '../assets/Zura-Logo-3.png';
 
 export default function ListingPage() {
@@ -20,13 +21,18 @@ export default function ListingPage() {
     } = useAnimeSearch();
 
     return (
-        <div className="min-h-screen bg-gray-50 pb-20">
+        <div className="min-h-screen pb-20 transition-colors duration-300 bg-[var(--bg-primary)] text-[var(--text-primary)]">
             <div className="container mx-auto px-4 py-8 md:py-12">
-                <header className="flex flex-col md:flex-row items-center justify-center gap-6 mb-12 md:mb-16">
-                    <img src={zuraLogo} alt="Zura Logo" className="h-20 w-auto object-contain" />
-                    <h1 className="text-4xl md:text-5xl font-black text-gray-900 tracking-tight">
-                        Anime Search
-                    </h1>
+                <header className="flex flex-col md:flex-row items-center justify-center gap-6 mb-12 md:mb-16 relative">
+                    <div className="flex items-center gap-4">
+                        <img src={zuraLogo} alt="Zura Logo" className="h-20 w-auto object-contain" />
+                        <h1 className="text-4xl md:text-5xl font-black tracking-tight text-[var(--text-primary)]">
+                            Anime Search
+                        </h1>
+                    </div>
+                    <div className="absolute right-0 top-0 md:relative md:top-auto">
+                        <DarkModeToggle />
+                    </div>
                 </header>
 
                 <SearchInput value={query} onChange={handleSearchChange} />

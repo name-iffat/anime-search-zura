@@ -4,25 +4,68 @@
 /* Theme */
 :root {
   --color-electric-blue: #007bff;
-  /* Example, adjust to actual brand color */
   --color-electric-blue-dark: #0056b3;
   --color-eco-green: #28a745;
+  --color-anime-red: #e63946;
+
+  /* Base Colors - Light */
+  --bg-primary: #f9fafb;
+  /* gray-50 */
+  --bg-secondary: #ffffff;
+  --bg-card: #ffffff;
+  --text-primary: #111827;
+  /* gray-900 */
+  --text-secondary: #4b5563;
+  /* gray-600 */
+  --text-inverted: #ffffff;
+  --border-color: #e5e7eb;
+  /* gray-200 */
+
+  /* Glassmorphism */
   --color-glass-bg: rgba(255, 255, 255, 0.7);
   --color-glass-border: rgba(255, 255, 255, 0.5);
+
+  /* Shadows */
+  --shadow-card: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
   --shadow-glow-blue: 0 0 15px rgba(0, 123, 255, 0.5);
   --shadow-glow-green: 0 0 15px rgba(40, 167, 69, 0.5);
+}
+
+.dark {
+  /* Base Colors - Dark */
+  --bg-primary: #0f172a;
+  /* slate-900 */
+  --bg-secondary: #1e293b;
+  /* slate-800 */
+  --bg-card: #1e293b;
+  --text-primary: #f3f4f6;
+  /* gray-100 */
+  --text-secondary: #9ca3af;
+  /* gray-400 */
+  --text-inverted: #0f172a;
+  --border-color: #374151;
+  /* gray-700 */
+
+  /* Glassmorphism */
+  --color-glass-bg: rgba(30, 41, 59, 0.8);
+  --color-glass-border: rgba(255, 255, 255, 0.1);
+
+  /* Shadows */
+  --shadow-card: 0 4px 6px -1px rgba(0, 0, 0, 0.5), 0 2px 4px -1px rgba(0, 0, 0, 0.3);
+  --shadow-glow-blue: 0 0 15px rgba(0, 123, 255, 0.3);
 }
 
 @theme {
   --color-electric-blue: var(--color-electric-blue);
   --color-eco-green: var(--color-eco-green);
-  --color-anime-red: #e63946;
-  /* Keeping existing branding if any */
+  --color-anime-red: var(--color-anime-red);
 }
 
 /* Global Styles */
 body {
-  @apply bg-gray-50 text-gray-900 antialiased;
+  background-color: var(--bg-primary);
+  color: var(--text-primary);
+  @apply antialiased transition-colors duration-300;
   font-family: 'Inter', system-ui, -apple-system, sans-serif;
 }
 

@@ -11,7 +11,7 @@ export default function AnimeCard({ anime }: AnimeCardProps) {
     return (
         <Link
             to={`/anime/${anime.mal_id}`}
-            className="group block bg-white rounded-xl overflow-hidden shadow-md hover:shadow-glow-blue transition-smooth ring-offset-2 focus:outline-none focus:ring-2 focus:ring-electric-blue relative h-full flex flex-col"
+            className="group block bg-[var(--bg-card)] rounded-xl overflow-hidden shadow-md hover:shadow-glow-blue transition-smooth ring-offset-2 focus:outline-none focus:ring-2 focus:ring-electric-blue relative h-full flex flex-col"
             aria-label={`View details for ${anime.title}`}
         >
             <div className="relative aspect-[3/4] overflow-hidden">
@@ -32,7 +32,7 @@ export default function AnimeCard({ anime }: AnimeCardProps) {
                 <h3 className="font-bold text-lg leading-tight line-clamp-2 group-hover:text-electric-blue transition-colors">
                     {anime.title}
                 </h3>
-                <p className="text-sm text-gray-500 mt-2 line-clamp-3 mb-4 flex-1">
+                <p className="text-sm text-[var(--text-secondary)] mt-2 line-clamp-3 mb-4 flex-1">
                     {shortSynopsis || 'No synopsis available'}
                 </p>
                 <div className="flex items-center text-xs font-medium text-electric-blue opacity-0 group-hover:opacity-100 transition-opacity transform translate-y-2 group-hover:translate-y-0">

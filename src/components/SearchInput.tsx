@@ -18,7 +18,7 @@ export default function SearchInput({
                 value={value}
                 onChange={(e: ChangeEvent<HTMLInputElement>) => onChange(e.target.value)}
                 placeholder={placeholder}
-                className="w-full px-5 py-4 pl-12 text-lg bg-white/90 border-2 border-gray-200 rounded-full shadow-sm hover:shadow-md focus:outline-none focus:border-electric-blue focus:ring-4 focus:ring-electric-blue/20 focus:shadow-glow-blue transition-smooth placeholder:text-gray-400 text-gray-800"
+                className="w-full px-5 py-4 pl-12 text-lg bg-[var(--bg-card)] border-2 border-[var(--border-color)] rounded-full shadow-sm hover:shadow-md focus:outline-none focus:border-electric-blue focus:ring-4 focus:ring-electric-blue/20 focus:shadow-glow-blue transition-smooth placeholder:text-[var(--text-secondary)] text-[var(--text-primary)]"
                 aria-label="Search anime titles"
             />
             <div className="absolute left-4 top-1/2 -translate-y-1/2 text-gray-400 peer-focus:text-electric-blue transition-colors">
