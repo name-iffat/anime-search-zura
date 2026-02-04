@@ -22,15 +22,15 @@ export default function Pagination({ currentPage, totalPages, onPageChange }: Pa
     const isLastPage = currentPage === totalPages;
 
     return (
-        <nav className="flex justify-center items-center gap-2 mt-8 flex-wrap" aria-label="Pagination">
+        <nav className="flex justify-center items-center gap-2 mt-12 flex-wrap" aria-label="Pagination">
             <button
                 onClick={() => onPageChange(currentPage - 1)}
                 disabled={isFirstPage}
                 className={`
-          px-5 py-2.5 rounded-lg font-medium transition-all duration-200
+          flex items-center justify-center px-6 py-3 rounded-full font-bold transition-smooth
           ${isFirstPage
-                        ? 'bg-gray-200 text-gray-400 cursor-not-allowed'
-                        : 'bg-electric-blue text-white bg-blue-500 hover:bg-blue-700 active:bg-blue-800'}
+                        ? 'bg-gray-100 text-gray-400 cursor-not-allowed'
+                        : 'bg-white text-gray-700 hover:bg-electric-blue hover:text-white shadow-md hover:shadow-glow-blue'}
         `}
                 aria-label="Previous page"
                 aria-disabled={isFirstPage}
@@ -38,31 +38,38 @@ export default function Pagination({ currentPage, totalPages, onPageChange }: Pa
                 Previous
             </button>
 
-            {pages.map((p) => (
-                <button
-                    key={p}
-                    onClick={() => onPageChange(p)}
-                    className={`
-            px-4 py-2 rounded-lg font-medium transition-all duration-200 min-w-[40px]
+            <div className="flex gap-2 bg-white/50 backdrop-blur-sm p-1 rounded-full mx-2 hidden sm:flex">
+                {pages.map((p) => (
+                    <button
+                        key={p}
+                        onClick={() => onPageChange(p)}
+                        className={`
+            w-10 h-10 rounded-full font-bold transition-smooth flex items-center justify-center text-sm
             ${p === currentPage
-                            ? 'bg-electric-blue text-gray-700 ring-2 ring-electric-blue/50'
-                            : 'bg-white text-gray-700 border border-gray-300 hover:bg-gray-100 active:bg-gray-200'}
+                                ? 'bg-electric-blue text-white shadow-glow-blue scale-110'
+                                : 'text-gray-600 hover:bg-gray-100 hover:text-electric-blue'}
           `}
-                    aria-current={p === currentPage ? 'page' : undefined}
-                    aria-label={`Go to page ${p}`}
-                >
-                    {p}
-                </button>
-            ))}
+                        aria-current={p === currentPage ? 'page' : undefined}
+                        aria-label={`Go to page ${p}`}
+                    >
+                        {p}
+                    </button>
+                ))}
+            </div>
+
+            {/* Mobile View*/}
+            <span className="sm:hidden font-bold text-gray-600 mx-4">
+                {currentPage} / {totalPages}
+            </span>
 
             <button
                 onClick={() => onPageChange(currentPage + 1)}
                 disabled={isLastPage}
                 className={`
-          px-5 py-2.5 rounded-lg font-medium transition-all duration-200
+          flex items-center justify-center px-6 py-3 rounded-full font-bold transition-smooth
           ${isLastPage
-                        ? 'bg-gray-200 text-gray-400 cursor-not-allowed'
-                        : 'bg-electric-blue text-white bg-blue-500 hover:bg-blue-700 active:bg-blue-800'}
+                        ? 'bg-gray-100 text-gray-400 cursor-not-allowed'
+                        : 'bg-white text-gray-700 hover:bg-electric-blue hover:text-white shadow-md hover:shadow-glow-blue'}
         `}
                 aria-label="Next page"
                 aria-disabled={isLastPage}

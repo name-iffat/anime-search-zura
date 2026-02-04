@@ -5,11 +5,11 @@
 
 ## Progress Tracker
 
-- [x] Phase 1 – Project Initialization (Vite, Tailwind v4.1, folders, Git)
-- [x] Phase 2 – API Setup & Types (Axios instance, full Jikan types, first fetch)
-- [x] Phase 3 – Search & Listing Page (debounced search, cards, grid, states)
-- [x] Phase 4 – Pagination & States (URL sync, retry on 429, no duplicates, smooth transitions)
-- [ ] Phase 5 – Detail Page
+- [x] Phase 1 – Project Initialization
+- [x] Phase 2 – API Setup & Types
+- [x] Phase 3 – Search & Listing Page
+- [x] Phase 4 – Pagination & States
+- [x] Phase 5 – Detail Page (full details, hero, stats, trailer, relations, links)
 - [ ] Phase 6 – UI/UX Polish
 - [ ] Phase 7 – Advanced Bonuses
 - [ ] Phase 8 – Performance Bonuses
@@ -42,7 +42,7 @@ Demonstrate strong React + TypeScript skills, clean architecture, responsive UI/
 - Styling: Any (Tailwind CSS chosen) — **no** Material-UI, Ant Design, Chakra, etc. → all UI custom  
 - State Management: React hooks, Context API, or Redux → **hooks + Context API** chosen  
 - HTTP Client: fetch or axios → **axios** chosen  
-- **No UI/component libraries** allowed
+- **No UI/component libraries** allowed. must build custom components
 
 ## Chosen Tech Stack
 
@@ -181,10 +181,12 @@ anime-search-zura/
 
 ## Next Action
 
-***Phase 5 deliverables**  
-- `src/hooks/useAnimeDetail.ts` – fetch full anime by ID  
-- `src/pages/DetailPage.tsx` – rich detail layout with hero, info sections  
-- Consistent loading/error UI
+**Phase 6 deliverables**  
+- Responsive layout fixes (media queries, mobile menu if needed)  
+- CSS transitions on cards/hovers/page loads  
+- Accessibility audit & fixes  
+- EV theme consistency (buttons, spinners, cards)  
+- Commit: “Phase 6: UI/UX polish – responsive, animations, accessibility”
 ---
 
 **Last updated:** February 05, 2026

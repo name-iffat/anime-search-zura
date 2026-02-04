@@ -25,83 +25,98 @@ export default function DetailPage() {
     const scorePercentage = anime.score ? Math.round(anime.score * 10) : 0;
 
     return (
-        <div className="container mx-auto px-4 py-8">
+        <div className="container mx-auto px-4 py-8 animate-fade-in-up">
             <Link
                 to="/"
-                className="inline-flex items-center text-electric-blue hover:text-blue-700 mb-6"
+                className="inline-flex items-center text-gray-500 hover:text-electric-blue font-bold mb-6 transition-colors group"
             >
-                ← Back to search
+                <span className="mr-2 transform group-hover:-translate-x-1 transition-transform">←</span> Back to search
             </Link>
 
-            <div className="bg-white rounded-xl shadow-lg overflow-hidden">
+            <div className="bg-white rounded-xl shadow-lg run-ring overflow-hidden border border-gray-100">
                 {/* Hero */}
-                <div className="relative h-96 md:h-[500px]">
-                    <img
-                        src={anime.images.jpg.large_image_url}
-                        alt={anime.title}
-                        className="w-full h-full object-cover"
-                    />
-                    <div className="absolute inset-0 bg-gradient-to-t from-black/70 to-transparent" />
-                    <div className="absolute bottom-0 left-0 right-0 p-8 text-white">
-                        <h1 className="text-4xl md:text-5xl font-bold">{anime.title}</h1>
+                <div className="relative h-96 md:h-[500px] group">
+                    <div className="absolute inset-0 transition-transform duration-700 group-hover:scale-105">
+                        <img
+                            src={anime.images.jpg.large_image_url}
+                            alt={anime.title}
+                            className="w-full h-full object-cover"
+                        />
+                        <div className="w-full h-full absolute inset-0 bg-gradient-to-t from-black/80 via-black/40 to-transparent" />
+                    </div>
+                    <div className="absolute bottom-0 left-0 right-0 p-8 text-white pointer-events-none">
+                        <h1 className="text-4xl md:text-5xl font-black mb-2 leading-tight">{anime.title}</h1>
                         {anime.title_english && (
-                            <p className="text-xl mt-2 opacity-90">{anime.title_english}</p>
+                            <p className="text-xl opacity-90 font-medium text-blue-200">{anime.title_english}</p>
                         )}
                     </div>
                 </div>
 
                 {/* Main content */}
-                <div className="p-6 md:p-10">
+                <div className="p-6 md:p-10 space-y-10">
                     {/* Quick stats */}
-                    <div className="grid grid-cols-2 md:grid-cols-4 gap-6 mb-10">
+                    <div className="grid grid-cols-2 md:grid-cols-4 gap-6 p-6 bg-gray-50 rounded-2xl border border-gray-100">
                         <div className="text-center">
-                            <p className="text-sm text-gray-500">Score</p>
-                            <div className="mt-2 w-16 h-16 mx-auto rounded-full bg-gradient-to-br from-electric-blue to-eco-green flex items-center justify-center text-#28A745 text-2xl font-bold relative">
-                                {anime.score?.toFixed(1) || 'N/A'}
-                                <svg className="absolute inset-0" viewBox="0 0 100 100">
-                                    <circle cx="50" cy="50" r="48" fill="none" stroke="#e5e7eb" strokeWidth="4" />
-                                    <circle
-                                        cx="50" cy="50" r="48" fill="none" stroke="#28A745" strokeWidth="4"
-                                        strokeDasharray={`${scorePercentage} 100`} strokeLinecap="round"
-                                        transform="rotate(-90 50 50)"
-                                    />
+                            <p className="text-sm text-gray-500 font-bold uppercase tracking-wider">Score</p>
+                            <div className="mt-3 w-20 h-20 mx-auto rounded-full bg-white shadow-md flex items-center justify-center relative">
+                                <span className={`text-2xl font-black ${anime.score && anime.score >= 8 ? 'text-electric-blue' : 'text-gray-700'}`}>
+                                    {anime.score?.toFixed(1) || 'N/A'}
+                                </span>
+                                <svg className="absolute inset-0 w-full h-full -rotate-90" viewBox="0 0 100 100">
+                                    <circle cx="50" cy="50" r="45" fill="none" stroke="#f3f4f6" strokeWidth="8" />
+                                    {anime.score && (
+                                        <circle
+                                            cx="50" cy="50" r="45"
+                                            fill="none"
+                                            stroke={anime.score >= 8 ? 'var(--color-electric-blue)' : '#28a745'}
+                                            strokeWidth="8"
+                                            strokeDasharray={`${scorePercentage * 2.82} 282`}
+                                            strokeLinecap="round"
+                                            className="transition-all duration-1000 ease-out"
+                                        />
+                                    )}
                                 </svg>
                             </div>
                         </div>
 
-                        <div className="text-center">
-                            <p className="text-sm text-gray-500">Episodes</p>
-                            <p className="text-3xl font-bold mt-2">{anime.episodes || '?'}</p>
+                        <div className="text-center flex flex-col justify-center">
+                            <p className="text-sm text-gray-500 font-bold uppercase tracking-wider">Episodes</p>
+                            <p className="text-3xl font-black text-gray-800 mt-2">{anime.episodes || '?'}</p>
                         </div>
 
-                        <div className="text-center">
-                            <p className="text-sm text-gray-500">Status</p>
-                            <p className="text-xl font-medium mt-2">{anime.status}</p>
+                        <div className="text-center flex flex-col justify-center">
+                            <p className="text-sm text-gray-500 font-bold uppercase tracking-wider">Status</p>
+                            <p className={`text-xl font-bold mt-2 ${anime.status === 'Currently Airing' ? 'text-eco-green animate-pulse' : 'text-gray-800'}`}>
+                                {anime.status}
+                            </p>
                         </div>
 
-                        <div className="text-center">
-                            <p className="text-sm text-gray-500">Year</p>
-                            <p className="text-xl font-medium mt-2">{anime.year || 'N/A'}</p>
+                        <div className="text-center flex flex-col justify-center">
+                            <p className="text-sm text-gray-500 font-bold uppercase tracking-wider">Year</p>
+                            <p className="text-xl font-bold text-gray-800 mt-2">{anime.year || 'N/A'}</p>
                         </div>
                     </div>
 
                     {/* Synopsis */}
-                    <div className="mb-10">
-                        <h2 className="text-2xl font-bold mb-4">Synopsis</h2>
-                        <p className="text-gray-700 leading-relaxed whitespace-pre-line">
+                    <div>
+                        <h2 className="text-2xl font-bold mb-4 flex items-center gap-2">
+                            <span className="w-2 h-8 bg-electric-blue rounded-full" />
+                            Synopsis
+                        </h2>
+                        <p className="text-gray-700 leading-relaxed text-lg lg:max-w-4xl">
                             {anime.synopsis || 'No synopsis available.'}
                         </p>
                     </div>
 
                     {/* Genres & Studios */}
                     {(anime.genres?.length || anime.studios?.length) && (
-                        <div className="grid md:grid-cols-2 gap-8 mb-10">
+                        <div className="grid md:grid-cols-2 gap-8">
                             {anime.genres && anime.genres.length > 0 && (
                                 <div>
-                                    <h3 className="text-xl font-semibold mb-3">Genres</h3>
+                                    <h3 className="text-xl font-bold mb-4 text-gray-800">Genres</h3>
                                     <div className="flex flex-wrap gap-2">
                                         {anime.genres.map(g => (
-                                            <span key={g.mal_id} className="px-3 py-1 bg-gray-100 rounded-full text-sm">
+                                            <span key={g.mal_id} className="px-4 py-2 bg-gray-100 text-gray-700 rounded-full text-sm font-medium hover:bg-electric-blue hover:text-white transition-colors cursor-default shadow-sm hover:shadow-glow-blue">
                                                 {g.name}
                                             </span>
                                         ))}
@@ -111,10 +126,10 @@ export default function DetailPage() {
 
                             {anime.studios && anime.studios.length > 0 && (
                                 <div>
-                                    <h3 className="text-xl font-semibold mb-3">Studios</h3>
+                                    <h3 className="text-xl font-bold mb-4 text-gray-800">Studios</h3>
                                     <div className="flex flex-wrap gap-2">
                                         {anime.studios.map(s => (
-                                            <span key={s.mal_id} className="px-3 py-1 bg-gray-100 rounded-full text-sm">
+                                            <span key={s.mal_id} className="px-4 py-2 bg-gray-100 text-gray-700 rounded-full text-sm font-medium hover:bg-eco-green hover:text-white transition-colors cursor-default shadow-sm">
                                                 {s.name}
                                             </span>
                                         ))}

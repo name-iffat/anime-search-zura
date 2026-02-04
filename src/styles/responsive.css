@@ -1,0 +1,24 @@
+/* Tab */
+@media (min-width: 768px) {
+    .grid-cols-custom {
+        grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    }
+}
+
+/* Desktop */
+@media (min-width: 1024px) {
+    .container {
+        max-width: 1280px;
+    }
+
+    .hero-text {
+        font-size: 4.5rem;
+    }
+}
+
+/* Fix overflow mobile */
+@media (max-width: 640px) {
+    .overflow-x-hidden {
+        overflow-x: hidden;
+    }
+}
